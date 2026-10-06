@@ -34,6 +34,8 @@
         v-for="item in serviciosFiltrados" 
         :key="item.id" 
         :servicio="item" 
+        :es-favorito="favoritosIds.includes(item.id)"
+        @toggle-favorito="toggleFavorito"
       />
     </div>
 
@@ -52,14 +54,25 @@ import ServicioCard from '../components/ServicioCard.vue'
 const servicios = ref(serviciosData)
 const textoBusqueda = ref('')
 const categoriaSeleccionada = ref('')
+const favoritosIds = ref([])
 
-// Obtener la lista única de categorías de los servicios
+// Función para agregar o eliminar de la lista de favoritos
+const toggleFavorito = (id) => {
+  const index = favoritosIds.value.indexOf(id)
+  if (index === -1) {
+    favoritosIds.value.push(id)
+  } else {
+    favoritosIds.value.splice(index, 1)
+  }
+}
+
+// Lista única de categorías
 const categorias = computed(() => {
   const lista = servicios.value.map(s => s.categoria)
   return [...new Set(lista)]
 })
 
-// Filtrado combinado por texto de búsqueda y categoría
+// Filtrado combinado
 const serviciosFiltrados = computed(() => {
   return servicios.value.filter(servicio => {
     const coincideNombre = servicio.nombre

@@ -262,3 +262,33 @@ nav a.router-link-active {
 .margin-top {
   margin-top: 15px;
 }
+
+/* Botón y acciones de tarjeta */
+.card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-favorito {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e0;
+  background-color: #f7fafc;
+  color: #4a5568;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-favorito:hover {
+  background-color: #edf2f7;
+}
+
+.btn-favorito.es-fav {
+  background-color: #fefcbf;
+  border-color: #ecc94b;
+  color: #744210;
+}

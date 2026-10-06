@@ -1,4 +1,3 @@
-<!-- src/components/ServicioCard.vue -->
 <template>
   <div class="card">
     <div class="card-header">
@@ -16,6 +15,15 @@
       <RouterLink :to="`/servicios/${servicio.id}`" class="btn-detalle">
         Ver detalle
       </RouterLink>
+
+      <button 
+        type="button" 
+        class="btn-favorito" 
+        :class="{ 'es-fav': esFavorito }" 
+        @click="emit('toggle-favorito', servicio.id)"
+      >
+        {{ esFavorito ? '★ Favorito' : '☆ Agregar a Favoritos' }}
+      </button>
     </div>
   </div>
 </template>
@@ -27,6 +35,12 @@ defineProps({
   servicio: {
     type: Object,
     required: true
+  },
+  esFavorito: {
+    type: Boolean,
+    default: false
   }
 })
+
+const emit = defineEmits(['toggle-favorito'])
 </script>
