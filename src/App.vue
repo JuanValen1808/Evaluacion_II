@@ -1,8 +1,13 @@
-<!-- src/App.vue -->
 <template>
   <div id="app">
     <header>
       <h2>Plataforma de Servicios Profesionales de Ñuble</h2>
+      <nav>
+        <RouterLink to="/">Inicio</RouterLink>
+        <RouterLink to="/servicios">Servicios</RouterLink>
+        <RouterLink to="/favoritos">Favoritos</RouterLink>
+        <RouterLink to="/contacto">Contacto</RouterLink>
+      </nav>
     </header>
     <main>
       <RouterView />
@@ -11,5 +16,5 @@
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
