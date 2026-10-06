@@ -4,20 +4,72 @@
     <h1>Catálogo de Servicios</h1>
     <p>Explora los servicios disponibles en la Región de Ñuble.</p>
 
-    <div class="servicios-grid">
+    <!-- Panel de búsqueda y filtro -->
+    <div class="filtros-container">
+      <div class="filtro-grupo">
+        <label for="buscar">Buscar por nombre:</label>
+        <input 
+          id="buscar"
+          type="text" 
+          v-model="textoBusqueda" 
+          placeholder="Escribe un servicio..." 
+          class="input-control"
+        />
+      </div>
+
+      <div class="filtro-grupo">
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" v-model="categoriaSeleccionada" class="input-control">
+          <option value="">Todas las categorías</option>
+          <option v-for="cat in categorias" :key="cat" :value="cat">
+            {{ cat }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Renderizado condicional del catálogo -->
+    <div v-if="serviciosFiltrados.length > 0" class="servicios-grid">
       <ServicioCard 
-        v-for="item in servicios" 
+        v-for="item in serviciosFiltrados" 
         :key="item.id" 
         :servicio="item" 
       />
+    </div>
+
+    <!-- Mensaje cuando no hay resultados -->
+    <div v-else class="mensaje-vacio">
+      <p>No se encontraron servicios para los criterios seleccionados.</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { serviciosData } from '../services/serviciosData.js'
 import ServicioCard from '../components/ServicioCard.vue'
 
 const servicios = ref(serviciosData)
+const textoBusqueda = ref('')
+const categoriaSeleccionada = ref('')
+
+// Obtener la lista única de categorías de los servicios
+const categorias = computed(() => {
+  const lista = servicios.value.map(s => s.categoria)
+  return [...new Set(lista)]
+})
+
+// Filtrado combinado por texto de búsqueda y categoría
+const serviciosFiltrados = computed(() => {
+  return servicios.value.filter(servicio => {
+    const coincideNombre = servicio.nombre
+      .toLowerCase()
+      .includes(textoBusqueda.value.toLowerCase().trim())
+      
+    const coincideCategoria = categoriaSeleccionada.value === '' || 
+      servicio.categoria === categoriaSeleccionada.value
+
+    return coincideNombre && coincideCategoria
+  })
+})
 </script>
