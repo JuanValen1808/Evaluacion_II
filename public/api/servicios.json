@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "Desarrollo de Software Web",
+    "categoria": "Tecnología",
+    "descripcion": "Construcción de aplicaciones web a medida con Vue.js y Node.js.",
+    "precio": 450000,
+    "disponible": true
+  },
+  {
+    "id": 2,
+    "nombre": "Diseño Gráfico y Branding",
+    "categoria": "Diseño",
+    "descripcion": "Creación de identidad corporativa, logotipos y material publicitario.",
+    "precio": 200000,
+    "disponible": true
+  },
+  {
+    "id": 3,
+    "nombre": "Asesoría Contable y Tributaria",
+    "categoria": "Consultoría",
+    "descripcion": "Gestión de impuestos, declaraciones y contabilidad general para PYMES.",
+    "precio": 150000,
+    "disponible": false
+  },
+  {
+    "id": 4,
+    "nombre": "Mantenimiento Técnico de Redes",
+    "categoria": "Tecnología",
+    "descripcion": "Instalación y soporte de redes locales e infraestructura informática.",
+    "precio": 180000,
+    "disponible": true
+  },
+  {
+    "id": 5,
+    "nombre": "Marketing Digital y RRSS",
+    "categoria": "Marketing",
+    "descripcion": "Estrategias de publicidad digital y gestión de redes sociales.",
+    "precio": 250000,
+    "disponible": true
+  },
+  {
+    "id": 6,
+    "nombre": "Fotografía y Video Profesional",
+    "categoria": "Diseño",
+    "descripcion": "Cobertura de eventos corporativos y fotografía de productos.",
+    "precio": 300000,
+    "disponible": false
+  }
+]

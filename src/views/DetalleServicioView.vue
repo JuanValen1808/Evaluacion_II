@@ -1,7 +1,11 @@
 <!-- src/views/DetalleServicioView.vue -->
 <template>
   <div class="view-container">
-    <div v-if="servicio" class="detalle-card">
+    <div v-if="cargando" class="estado-carga">
+      <p>Cargando información del servicio...</p>
+    </div>
+
+    <div v-else-if="servicio" class="detalle-card">
       <div class="detalle-header">
         <span class="badge-categoria">{{ servicio.categoria }}</span>
         <span 
@@ -28,7 +32,6 @@
       </div>
     </div>
 
-    <!-- Mensaje si el servicio no existe o el ID es inválido -->
     <div v-else class="mensaje-vacio">
       <h2>Servicio no encontrado</h2>
       <p>El servicio solicitado no existe o fue removido del catálogo.</p>
@@ -40,17 +43,23 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
-import { serviciosData } from '../services/serviciosData.js'
+import { obtenerServicios } from '../services/serviciosService.js'
 
 const route = useRoute()
+const servicio = ref(null)
+const cargando = ref(true)
 
-// Obtenemos el ID de los parámetros de la ruta (/servicios/:id)
-const servicioId = Number(route.params.id)
-
-// Buscamos el servicio correspondiente
-const servicio = computed(() => {
-  return serviciosData.find(item => item.id === servicioId)
+onMounted(async () => {
+  const servicioId = Number(route.params.id)
+  try {
+    const servicios = await obtenerServicios()
+    servicio.value = servicios.find(item => item.id === servicioId) || null
+  } catch (error) {
+    console.error('Error al recuperar servicio', error)
+  } finally {
+    cargando.value = false
+  }
 })
 </script>

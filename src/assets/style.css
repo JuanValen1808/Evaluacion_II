@@ -292,3 +292,22 @@ nav a.router-link-active {
   border-color: #ecc94b;
   color: #744210;
 }
+
+/* Estilos para Estados de Carga y Error de Fetch */
+.estado-carga {
+  padding: 30px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #3182ce;
+  font-weight: 600;
+}
+
+.mensaje-error {
+  padding: 20px;
+  background-color: #fff5f5;
+  border: 1px solid #feb2b2;
+  border-radius: 8px;
+  color: #c53030;
+  text-align: center;
+  margin: 20px 0;
+}
