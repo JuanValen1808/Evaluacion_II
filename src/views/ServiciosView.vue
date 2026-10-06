@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { serviciosData } from '../services/serviciosData.js'
 import ServicioCard from '../components/ServicioCard.vue'
 
@@ -55,6 +55,27 @@ const servicios = ref(serviciosData)
 const textoBusqueda = ref('')
 const categoriaSeleccionada = ref('')
 const favoritosIds = ref([])
+
+// Cargar favoritos guardados en localStorage al iniciar el componente
+onMounted(() => {
+  const guardados = localStorage.getItem('favoritos_servicios')
+  if (guardados) {
+    try {
+      favoritosIds.value = JSON.parse(guardados)
+    } catch (e) {
+      console.error('Error al parsear favoritos de localStorage', e)
+    }
+  }
+})
+
+// Observar cambios en favoritosIds y guardarlos en localStorage
+watch(
+  favoritosIds,
+  (nuevosFavoritos) => {
+    localStorage.setItem('favoritos_servicios', JSON.stringify(nuevosFavoritos))
+  },
+  { deep: true }
+)
 
 // Función para agregar o eliminar de la lista de favoritos
 const toggleFavorito = (id) => {
